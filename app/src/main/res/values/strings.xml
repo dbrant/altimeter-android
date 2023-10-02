@@ -3,6 +3,7 @@
     <string name="val_latitude">Latitude</string>
     <string name="val_longitude">Longitude</string>
     <string name="val_altitude">Altitude</string>
+    <string name="val_unknown">…</string>
 
     <string name="permissions_invalid">Altimeter</string>
     <string name="gps_unavailable">Altimeter</string>

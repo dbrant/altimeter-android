@@ -14,6 +14,7 @@ import android.os.IBinder
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import com.dmitrybrant.altimeter.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), LocationListener {
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.progressBar.isVisible = true
 
         if (haveLocationPermissions()) {
             startLocationTracking()
@@ -63,6 +66,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
+        binding.progressBar.isVisible = false
+
         binding.txtLatitude.text = location.latitude.toString()
         binding.txtLongitude.text = location.longitude.toString()
         binding.txtAltitude.text = location.altitude.toInt().toString() //"Altitude: ${location.altitude.toInt()} m (${(location.altitude * 3.28084).toInt()} ft)"
