@@ -28,6 +28,7 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import com.dmitrybrant.altimeter.databinding.ActivityMainBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, SensorEventListener {
@@ -115,7 +116,11 @@ class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, Sensor
                 true
             }
             R.id.menu_about -> {
-                //
+                MaterialAlertDialogBuilder(this)
+                    .setTitle(getString(R.string.about))
+                    .setMessage(getString(R.string.about_body))
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
                 true
             }
             else -> false

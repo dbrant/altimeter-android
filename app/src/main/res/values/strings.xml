@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Altimeter</string>
     <string name="about">About…</string>
-    <string name="about_body">By Dmitry Brant.</string>
+    <string name="about_body">An app that displays your GPS location (with altitude), plus compass.\nBy Dmitry Brant.</string>
 
     <string name="val_latitude">Latitude</string>
     <string name="val_longitude">Longitude</string>
