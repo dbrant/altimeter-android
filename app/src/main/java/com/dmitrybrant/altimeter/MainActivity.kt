@@ -54,13 +54,11 @@ class MainActivity : AppCompatActivity(), LocationListener, SensorEventListener 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         geoMagField = GeomagneticField(0f, 0f, 0f, System.currentTimeMillis())
 
-        binding.progressBar.isVisible = true
-
-        if (haveLocationPermissions()) {
-            startLocationTracking()
-        } else {
-            locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        binding.refreshLayout.setOnRefreshListener {
+            setUpLocationTracking()
         }
+
+        setUpLocationTracking()
     }
 
     override fun onResume() {
@@ -84,6 +82,17 @@ class MainActivity : AppCompatActivity(), LocationListener, SensorEventListener 
         locationTracker?.cleanup()
     }
 
+    private fun setUpLocationTracking() {
+        if (haveLocationPermissions()) {
+            startLocationTracking()
+        } else {
+            locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        }
+
+        binding.progressBar.isVisible = true
+        binding.refreshLayout.isRefreshing = false
+    }
+
     private fun haveLocationPermissions(): Boolean {
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -104,7 +113,7 @@ class MainActivity : AppCompatActivity(), LocationListener, SensorEventListener 
 
         binding.txtLatitude.text = location.latitude.toString()
         binding.txtLongitude.text = location.longitude.toString()
-        binding.txtAltitude.text = location.altitude.toInt().toString() //"Altitude: ${location.altitude.toInt()} m (${(location.altitude * 3.28084).toInt()} ft)"
+        binding.txtAltitude.text = (location.altitude * 3.28084).toInt().toString()
 
         geoMagField = GeomagneticField(location.latitude.toFloat(), location.longitude.toFloat(),
             location.altitude.toFloat(), System.currentTimeMillis())

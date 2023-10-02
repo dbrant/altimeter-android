@@ -5,6 +5,6 @@
     <string name="val_altitude">Altitude</string>
     <string name="val_unknown">…</string>
 
-    <string name="permissions_invalid">Altimeter</string>
-    <string name="gps_unavailable">Altimeter</string>
+    <string name="permissions_invalid">Permission is required to access device location.</string>
+    <string name="gps_unavailable">GPS provider is unavailable.</string>
 </resources>
