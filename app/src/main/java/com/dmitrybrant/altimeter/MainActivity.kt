@@ -89,6 +89,10 @@ class MainActivity : AppCompatActivity(), LocationListener, SensorEventListener 
             locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         }
 
+        binding.txtLatitude.text = getString(R.string.val_unknown)
+        binding.txtLongitude.text = getString(R.string.val_unknown)
+        binding.txtAltitude.text = getString(R.string.val_unknown)
+
         binding.progressBar.isVisible = true
         binding.refreshLayout.isRefreshing = false
     }
