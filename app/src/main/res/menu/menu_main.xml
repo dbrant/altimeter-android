@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_latlongunits"
+        android:title="@string/menu_latlongunits"
+        app:showAsAction="never"/>
+    <item android:id="@+id/menu_altunits"
+        android:title="@string/menu_altunits"
+        app:showAsAction="never"/>
+    <item android:id="@+id/menu_about"
+        android:title="@string/about"
+        app:showAsAction="never"/>
+</menu>

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Altimeter</string>
+    <string name="about">About…</string>
+    <string name="about_body">By Dmitry Brant.</string>
+
     <string name="val_latitude">Latitude</string>
     <string name="val_longitude">Longitude</string>
     <string name="val_altitude">Altitude</string>
@@ -7,4 +10,7 @@
 
     <string name="permissions_invalid">Permission is required to access device location.</string>
     <string name="gps_unavailable">GPS provider is unavailable.</string>
+
+    <string name="menu_latlongunits">Decimal/HMS</string>
+    <string name="menu_altunits">Meters/Feet</string>
 </resources>
