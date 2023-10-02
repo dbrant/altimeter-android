@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, Sensor
         lastLocation?.let {
             binding.txtLatitude.text = if (latLongUnits) decToHms(it.latitude) else it.latitude.toString()
             binding.txtLongitude.text = if (latLongUnits) decToHms(it.longitude) else it.longitude.toString()
-            binding.txtAltitude.text = if (altUnits) ((it.altitude * 3.28084).toInt().toString() + " m") else (it.altitude.toInt().toString() + " ft")
+            binding.txtAltitude.text = if (altUnits) ((it.altitude * 3.28084).toInt().toString() + " ft") else (it.altitude.toInt().toString() + " m")
 
             geoMagField = GeomagneticField(it.latitude.toFloat(), it.longitude.toFloat(),
                 it.altitude.toFloat(), System.currentTimeMillis())
