@@ -2,5 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="divider">#FFb0b0b0</color>
+    <color name="primary">#ff5060e0</color>
+    <color name="primary_dark">#ff203080</color>
+    <color name="divider">#ffb0b0b0</color>
 </resources>

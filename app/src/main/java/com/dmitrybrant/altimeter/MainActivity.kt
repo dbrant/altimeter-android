@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity(), LocationListener, SensorEventListener 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         geoMagField = GeomagneticField(0f, 0f, 0f, System.currentTimeMillis())
 
