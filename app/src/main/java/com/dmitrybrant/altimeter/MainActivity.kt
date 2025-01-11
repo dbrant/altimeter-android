@@ -25,7 +25,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import com.dmitrybrant.altimeter.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -71,6 +74,15 @@ class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, Sensor
 
         binding.refreshLayout.setOnRefreshListener {
             setUpLocationTracking()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            val navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+
+            binding.toolbar.updatePadding(top = statusBarInsets.top)
+
+            WindowInsetsCompat.CONSUMED
         }
 
         setUpLocationTracking()
