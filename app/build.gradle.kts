@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.dmitrybrant.altimeter"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.dmitrybrant.altimeter"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
