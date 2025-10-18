@@ -33,6 +33,9 @@ import androidx.lifecycle.Lifecycle
 import com.dmitrybrant.altimeter.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.math.abs
+import kotlin.math.max
+import androidx.core.content.edit
+import androidx.core.view.WindowCompat
 
 class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, SensorEventListener {
     private lateinit var binding: ActivityMainBinding
@@ -62,6 +65,7 @@ class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, Sensor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.enableEdgeToEdge(window)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         restoreSettings()
@@ -69,7 +73,7 @@ class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, Sensor
         setSupportActionBar(binding.toolbar)
         addMenuProvider(this, this, Lifecycle.State.RESUMED)
 
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         geoMagField = GeomagneticField(0f, 0f, 0f, System.currentTimeMillis())
 
         binding.refreshLayout.setOnRefreshListener {
@@ -77,12 +81,14 @@ class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, Sensor
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
-            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
-            val navBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
-
-            binding.toolbar.updatePadding(top = statusBarInsets.top)
-
-            WindowInsetsCompat.CONSUMED
+            val newStatusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            val newNavBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            val newCaptionBarInsets = insets.getInsets(WindowInsetsCompat.Type.captionBar())
+            val newSystemBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val topInset = max(max(max(newStatusBarInsets.top, newCaptionBarInsets.top), newSystemBarInsets.top), newNavBarInsets.top)
+            val bottomInset = max(max(max(newStatusBarInsets.bottom, newCaptionBarInsets.bottom), newSystemBarInsets.bottom), newNavBarInsets.bottom)
+            binding.mainToolbarContainer.updatePadding(top = topInset)
+            insets
         }
 
         setUpLocationTracking()
@@ -155,10 +161,10 @@ class MainActivity : AppCompatActivity(), MenuProvider, LocationListener, Sensor
     }
 
     private fun saveSettings() {
-        val editor = getPrefs(this).edit()
-        editor.putBoolean(KEY_LATLONGUNITS, latLongUnits)
-        editor.putBoolean(KEY_ALTUNITS, altUnits)
-        editor.apply()
+        getPrefs(this).edit {
+            putBoolean(KEY_LATLONGUNITS, latLongUnits)
+            putBoolean(KEY_ALTUNITS, altUnits)
+        }
     }
 
     private fun restoreSettings() {
